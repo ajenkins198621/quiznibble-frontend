@@ -6,7 +6,9 @@ import { useRouter } from 'next/router'
 export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     const router = useRouter()
 
-    const { data: user, error, mutate } = useSWR('/api/user', () =>
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL
+
+    const { data: user, error, mutate } = useSWR(`${apiUrl}/user`, () =>
         axios
             .get('/api/user')
             .then(res => res.data)
